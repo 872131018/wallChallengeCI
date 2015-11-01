@@ -26,4 +26,36 @@ class Welcome extends CI_Controller {
 		*/
 		$this->load->view('login_view');
 	}
+	/*
+	*When the page calls for a wall update through ajax
+	*/
+	public function fillWall()
+	{
+		echo 'here';
+		var_dump($_GET);
+		/*
+		*Fill wall supports parameters
+		*TODO: Convert request to use CI style parameters
+		*/
+		/*
+		*TODO! Create a model for the comment and set up the database
+		*/
+		switch($_GET['action'])
+		{
+			case 'getWallContents':
+				//$result = $manager->getWallContents($_GET['sortOrder']);
+				if($result == NULL)
+				{
+					echo 'false';
+				}
+				else
+				{
+					echo $result;
+				}
+				break;
+			default:
+				echo 'false';
+				break;
+		}
+	}
 }

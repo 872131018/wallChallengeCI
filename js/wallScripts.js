@@ -133,14 +133,21 @@ function fillWall(passedSortOrder)
 	{
 		passedSortOrder = 'DESC';
 	}
-	console.log('here');
-	console.log(window.location.href);
-	return true;
-	$.get('../php/wallDriver.php', {'action': 'getWallContents',
-								  	'sortOrder': passedSortOrder
-	  								},
+	/*
+	*Making the call to the welcome.php controller
+	*The information gettng passed in with the url
+	*The on response update the page
+	*/
+	$.get(window.location.href+'index.php/welcome/fillWall',
+		{
+			'action': 'getWallContents',
+	  	'sortOrder': passedSortOrder
+		},
 		function(response)
 		{
+			//print here for debug
+			console.log(response);
+			return true;
 			if(response == 'false')
 			{
 				var message = '<li id="emptyWall">\
