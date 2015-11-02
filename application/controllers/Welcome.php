@@ -29,7 +29,7 @@ class Welcome extends CI_Controller {
 	/*
 	*When the page calls for a wall update through ajax
 	*/
-	public function fillWall()
+	public function fillWall($commentId = 0)
 	{
 		echo 'here';
 		var_dump($_GET);
@@ -37,11 +37,14 @@ class Welcome extends CI_Controller {
 		*Fill wall supports parameters
 		*TODO: Convert request to use CI style parameters
 		*/
-		/*
-		*TODO! Create a model for the comment and set up the database
-		*/
 		switch($_GET['action'])
 		{
+			//Always ensure an integer
+	    $commentId = (int)$commentId;
+	    /*
+			*The factory is where you put the models to work and manages them
+			*/
+    	$this->load->library("CommentFactory");
 			case 'getWallContents':
 				//$result = $manager->getWallContents($_GET['sortOrder']);
 				if($result == NULL)
