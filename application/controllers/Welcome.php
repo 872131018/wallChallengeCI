@@ -33,18 +33,18 @@ class Welcome extends CI_Controller {
 	{
 		echo 'here';
 		var_dump($_GET);
+		//Always ensure an integer
+		$commentId = (int)$commentId;
+		/*
+		*The factory is where you put the models to work and manages them
+		*/
+		$this->load->library("CommentFactory");
 		/*
 		*Fill wall supports parameters
 		*TODO: Convert request to use CI style parameters
 		*/
 		switch($_GET['action'])
 		{
-			//Always ensure an integer
-	    $commentId = (int)$commentId;
-	    /*
-			*The factory is where you put the models to work and manages them
-			*/
-    	$this->load->library("CommentFactory");
 			case 'getWallContents':
 				//$result = $manager->getWallContents($_GET['sortOrder']);
 				if($result == NULL)
