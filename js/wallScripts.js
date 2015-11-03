@@ -1,10 +1,14 @@
 /*
-*this function verifies that the comment contains the information that is required for posting
+*Validation function to ensure post is ok to submit
 */
 function checkPost()
 {
 	$('#feedback').html('');
 	var isOk = 'true';
+	/*
+	*Required class on input element adds to list of checks
+	*Each element in list can have seperate feedback by adding a case
+	*/
 	$('.required').each(function()
 	{
 		if($(this).val() == '')
@@ -12,17 +16,11 @@ function checkPost()
 			switch($(this).attr('id'))
 			{
 				case 'name':
-					$('#feedback').html($('#feedback').html()+
-										'You need to enter a name!'+
-										'<br>'
-										);
+					$('#feedback').html($('#feedback').html()+'You need to enter a name!<br>');
 					isOk = 'false';
 					break;
 				case 'comment':
-					$('#feedback').html($('#feedback').html()+
-										'You need to enter a comment!'+
-										'<br>'
-										);
+					$('#feedback').html($('#feedback').html()+'You need to enter a comment!<br>');
 					isOk = 'false';
 					break;
 			}
@@ -34,20 +32,23 @@ function checkPost()
 	}
 }
 /*
-*this function handles the ajax post, send the info and see what happens!
+*AJAX write to the database
+*TODO: serialize the info, urlencode, and strip special characters
 */
 function postComment()
 {
-	$.get('../PHP/wallDriver.php', {'action': 'saveComment',
-									  	'name': $('#name').val(),
-									  	'email': $('#email').val(),
-									  	'website': $('#website').val(),
-									  	'comment': $('#comment').val()
-		  								},
-		function(response)
-		{
-				checkResponse(response);
-		});
+	$.get(window.location.href+'index.php/welcome/fillWall',
+	{
+		'action': 'saveComment',
+  	'name': $('#name').val(),
+  	'email': $('#email').val(),
+  	'website': $('#website').val(),
+  	'comment': $('#comment').val()
+	},
+	function(response)
+	{
+			checkResponse(response);
+	});
 }
 /*
 *the server will response with stuff, use the stuff to determine what to do
@@ -124,7 +125,6 @@ function postToWall(passedComment)
 */
 function fillWall(passedSortOrder)
 {
-	//clean the bootstrap switch values from boolean
 	if(passedSortOrder)
 	{
 		passedSortOrder = 'ASC';
@@ -134,9 +134,7 @@ function fillWall(passedSortOrder)
 		passedSortOrder = 'DESC';
 	}
 	/*
-	*Making the call to the welcome.php controller
-	*The information gettng passed in with the url
-	*The on response update the page
+	*AJAX request to server sends an object and recieves json to update the wall
 	*/
 	$.get(window.location.href+'index.php/welcome/fillWall',
 		{
@@ -145,9 +143,6 @@ function fillWall(passedSortOrder)
 		},
 		function(response)
 		{
-			//print here for debug
-			//console.log(response);
-			//return true;
 			if(response == 'false')
 			{
 				/*
@@ -157,6 +152,9 @@ function fillWall(passedSortOrder)
 			}
 			else
 			{
+				//print here for debug
+				console.log(response);
+				return true;
 				var responseObject = $.parseJSON(response);
 				var rowObject = {};
 				var i = 1;

@@ -4,6 +4,9 @@
 $(document).ready(function()
 {
 	//TODO: implement button manager to set up buttons
+	/*
+	*Page has loaded, initialize actions of the buttons
+	*/
 	$('#postButton').on('click', function()
 	{
 		checkPost();
