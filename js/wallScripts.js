@@ -146,15 +146,14 @@ function fillWall(passedSortOrder)
 		function(response)
 		{
 			//print here for debug
-			console.log(response);
-			return true;
+			//console.log(response);
+			//return true;
 			if(response == 'false')
 			{
-				var message = '<li id="emptyWall">\
-							   		<span>There is nothing to post!</span>\
-							   	</li>';
-
-				postToWall(message);
+				/*
+				*server returns false on empty wall so display empty text
+				*/
+				postToWall('<li id="emptyWall"><span>There is nothing to post!</span></li>');
 			}
 			else
 			{

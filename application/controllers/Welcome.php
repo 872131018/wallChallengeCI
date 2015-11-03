@@ -24,17 +24,15 @@ class Welcome extends CI_Controller {
 		/*
 		*First thing is to load the index html
 		*/
-		$this->load->view('login_view');
+		$this->load->view('main_view');
 	}
 	/*
 	*When the page calls for a wall update through ajax
 	*/
-	public function fillWall($commentId = 0)
+	public function fillWall($postNumber = 0)
 	{
-		echo 'here';
-		var_dump($_GET);
 		//Always ensure an integer
-		$commentId = (int)$commentId;
+		$postNumber = (int)$postNumber;
 		/*
 		*The factory is where you put the models to work and manages them
 		*/
@@ -47,6 +45,16 @@ class Welcome extends CI_Controller {
 		{
 			case 'getWallContents':
 				//$result = $manager->getWallContents($_GET['sortOrder']);
+				//Create a data array so we can pass information to the view
+				//TODO: Convert to using an object rather than an array
+				/*
+				*Each key of $data will be available as variable in view
+				*/
+		    $data = array(
+		            "comments" => $this->commentfactory->getComments($postNumber)
+		            );
+		    $this->load->view("json_view", $data);
+				/*
 				if($result == NULL)
 				{
 					echo 'false';
@@ -55,6 +63,7 @@ class Welcome extends CI_Controller {
 				{
 					echo $result;
 				}
+				*/
 				break;
 			default:
 				echo 'false';

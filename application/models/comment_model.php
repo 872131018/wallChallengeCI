@@ -30,7 +30,7 @@ class Comment_Model extends CI_Model
       'name' => $this->_name,
 			'email' => $this->_email,
 			'wesbite' => $this->_website,
-			'comment' => $this->_comment;
+			'comment' => $this->_comment,
 			'submittedAt' => $this->_submittedAt
     );
 
