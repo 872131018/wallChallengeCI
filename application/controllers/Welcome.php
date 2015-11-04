@@ -41,7 +41,7 @@ class Welcome extends CI_Controller {
 		*Fill wall supports parameters
 		*TODO: Convert request to use CI style parameters
 		*/
-		switch($_GET['action'])
+		switch($_POST['action'])
 		{
 			case 'getWallContents':
 				//$result = $manager->getWallContents($_GET['sortOrder']);
@@ -64,6 +64,12 @@ class Welcome extends CI_Controller {
 					echo $result;
 				}
 				*/
+				break;
+			case 'saveComment':
+				if($this->commentfactory->saveComment($this->input->post()))
+				{
+					echo 'here';
+				}
 				break;
 			default:
 				echo 'false';

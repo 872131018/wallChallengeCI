@@ -57,9 +57,36 @@ class CommentFactory
 			}
 		}
   }
-
+	/*
+	*Commit comment to the database
+	*/
+	public function saveComment($passedComment)
+	{
+		$comment = $this->createObjectFromData($passedComment);
+		$comment->commit();
+		return true;
+	}
+	/*
+	*TODO: Move this setting to constructor
+	*Constructor should probably get take an array
+	*/
   public function createObjectFromData($row)
 	{
+		/*
+		*Use type juggling to ensure object style syntax will work
+		*/
+		$row = (object)$row;
+		/*
+		*New comments wont have a post number or a submitted time
+		*/
+		if(!isset($row->postNumber))
+		{
+			$row->postNumber = null;
+		}
+		if(!isset($row->submittedAt))
+		{
+			$row->submittedAt = null;
+		}
 		//Create a new comment_model object
 		$comment = new Comment_Model();
 		//Set the postnumber on the comment model
@@ -71,9 +98,9 @@ class CommentFactory
 		//set the website on the comment model
 		$comment->setWebsite($row->website);
 		//set the comment on the comment model
-		$comment->setComment($row->Comment);
+		$comment->setComment($row->comment);
 		//set the submittedAt on the comment model
-		$comment->setSubmittedAt($row->setSubmittedAt);
+		$comment->setSubmittedAt($row->submittedAt);
 		//Return the new user object
 		return $comment;
   }

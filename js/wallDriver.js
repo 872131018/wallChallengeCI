@@ -27,7 +27,7 @@ $(document).ready(function()
 		}
 	});
 	/*
-	*Initialize the bootstrap switch
+	*Initialize the fancy switch for sort order
 	*/
 	$("#sortOrder").bootstrapSwitch();
 	/*

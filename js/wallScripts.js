@@ -37,7 +37,7 @@ function checkPost()
 */
 function postComment()
 {
-	$.get(window.location.href+'index.php/welcome/fillWall',
+	$.post(window.location.href+'index.php/welcome/fillWall',
 	{
 		'action': 'saveComment',
   	'name': $('#name').val(),
@@ -47,11 +47,15 @@ function postComment()
 	},
 	function(response)
 	{
-			checkResponse(response);
+		//print here for debug
+		console.log(response);
+		return true;
+		checkResponse(response);
 	});
 }
 /*
 *the server will response with stuff, use the stuff to determine what to do
+*TODO: Consider moving this into the ajax callback above
 */
 function checkResponse(passedResponse)
 {
@@ -64,7 +68,7 @@ function checkResponse(passedResponse)
 	}
 	else
 	{
-		alert('do things if not ok');
+		//alert('do things if not ok');
 	}
 }
 
@@ -136,7 +140,7 @@ function fillWall(passedSortOrder)
 	/*
 	*AJAX request to server sends an object and recieves json to update the wall
 	*/
-	$.get(window.location.href+'index.php/welcome/fillWall',
+	$.post(window.location.href+'index.php/welcome/fillWall',
 		{
 			'action': 'getWallContents',
 	  	'sortOrder': passedSortOrder
@@ -152,9 +156,6 @@ function fillWall(passedSortOrder)
 			}
 			else
 			{
-				//print here for debug
-				console.log(response);
-				return true;
 				var responseObject = $.parseJSON(response);
 				var rowObject = {};
 				var i = 1;

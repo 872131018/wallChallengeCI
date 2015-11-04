@@ -33,7 +33,6 @@ class Comment_Model extends CI_Model
 			'comment' => $this->_comment,
 			'submittedAt' => $this->_submittedAt
     );
-
     if($this->_postNumber > 0)
 		{
       //We have an ID so we need to update this object because it is not new
@@ -45,8 +44,9 @@ class Comment_Model extends CI_Model
 		else
 		{
       //We dont have an ID meaning it is new and not yet in the database so we need to do an insert
-      if ($this->db->insert("wallContents", $data))
+      if($this->db->insert("wallContents", $data))
 			{
+				/* THIS IS THE POINT OF FAILURE IT CAN'T INSERT INTO THE DB!!! */
         //Now we can get the ID and update the newly created object
         $this->_postNumber = $this->db->insert_postNumber();
         return true;
