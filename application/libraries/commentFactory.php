@@ -62,6 +62,9 @@ class CommentFactory
 	*/
 	public function saveComment($passedComment)
 	{
+		/*
+		*TODO: these methods need to be integrated and have error handling
+		*/
 		$comment = $this->createObjectFromData($passedComment);
 		$comment->commit();
 		return true;

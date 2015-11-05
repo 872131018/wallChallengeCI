@@ -47,9 +47,11 @@ function postComment()
 	},
 	function(response)
 	{
-		//print here for debug
 		console.log(response);
 		return true;
+		/*
+		*TODO: Consider refactoring checkResponse into callback
+		*/
 		checkResponse(response);
 	});
 }

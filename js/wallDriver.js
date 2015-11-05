@@ -14,6 +14,7 @@ $(document).ready(function()
 
 	$('#sortOrder').on('click', function()
 	{
+		console.log($('#sortOrder').val()); return true;
 		$('#wallContainer').html('');
 		if($('#sortOrder').val() == 'ASC')
 		{

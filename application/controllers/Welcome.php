@@ -44,35 +44,24 @@ class Welcome extends CI_Controller {
 		switch($_POST['action'])
 		{
 			case 'getWallContents':
-				//$result = $manager->getWallContents($_GET['sortOrder']);
 				//Create a data array so we can pass information to the view
 				//TODO: Convert to using an object rather than an array
 				/*
 				*Each key of $data will be available as variable in view
 				*/
-		    $data = array(
-		            "comments" => $this->commentfactory->getComments($postNumber)
-		            );
-		    $this->load->view("json_view", $data);
-				/*
-				if($result == NULL)
-				{
-					echo 'false';
-				}
-				else
-				{
-					echo $result;
-				}
-				*/
+		    $data = array("comments" => $this->commentfactory->getComments($postNumber));
+		  	$this->load->view("json_view", $data);
 				break;
 			case 'saveComment':
-				if($this->commentfactory->saveComment($this->input->post()))
-				{
-					echo 'here';
-				}
+				//TODO: Convert to using an object rather than an array
+				/*
+				*Each key of $data will be available as variable in view
+				*/
+				$data = array("result" => $this->commentfactory->saveComment($this->input->post()));
+				$this->load->view("json_view", $data);
 				break;
 			default:
-				echo 'false';
+				echo 'error';
 				break;
 		}
 	}

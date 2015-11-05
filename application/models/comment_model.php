@@ -29,7 +29,7 @@ class Comment_Model extends CI_Model
       'postNumber' => $this->_postNumber,
       'name' => $this->_name,
 			'email' => $this->_email,
-			'wesbite' => $this->_website,
+			'website' => $this->_website,
 			'comment' => $this->_comment,
 			'submittedAt' => $this->_submittedAt
     );
@@ -46,11 +46,18 @@ class Comment_Model extends CI_Model
       //We dont have an ID meaning it is new and not yet in the database so we need to do an insert
       if($this->db->insert("wallContents", $data))
 			{
-				/* THIS IS THE POINT OF FAILURE IT CAN'T INSERT INTO THE DB!!! */
-        //Now we can get the ID and update the newly created object
-        $this->_postNumber = $this->db->insert_postNumber();
         return true;
       }
+			else
+			{
+				/*
+				*There was an error with the insert retrieve and show error
+				*TODO: handle error properly
+				*/
+				$error = $this->db->error();
+				var_dump($error);
+				die;
+			}
     }
     return false;
   }
